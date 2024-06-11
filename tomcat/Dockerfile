@@ -41,8 +41,8 @@ RUN set -ex && \
     echo "yozo ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers && \
     curl -u temp:releases@2022 -SsLf "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz" -O  && \
     mkdir -p /opt/yozo/yozo_office_jre/  && \
-    tar -zxf "Jre_${OS_ARCH}_1.8.0.tar.gz" -C /opt/yozo/yozo_office_jre/ --no-same-owner && \
-    rm -rf "Jre_${OS_ARCH}_1.8.0.tar.gz"
+    tar -zxf "YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz" -C /opt/yozo/yozo_office_jre/ --no-same-owner && \
+    rm -rf "YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz"
     #echo "yozo ALL=(ALL)       NOPASSWD:/usr/bin/cat /sys/class/dmi/id/product_uuid,/bin/cat /sys/class/dmi/id/product_uuid" >> /etc/sudoers
 
 ENV TZ=Asia/Shanghai
