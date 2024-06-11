@@ -1,4 +1,4 @@
-FROM alpine:3.18.3   AS gotpl
+FROM alpine:3.18.3   AS go_build
 
 WORKDIR /opt/yozo/workdir
 
