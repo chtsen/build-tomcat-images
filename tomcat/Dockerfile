@@ -39,7 +39,7 @@ RUN set -ex && \
     apt update && \
     apt install sudo language-pack-zh-han* -y && \
     echo "yozo ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers && \
-    curl -SsLf "https://repo.yozosoft.com/repository/oss/common/jdk/Jre_${OS_ARCH}_1.8.0.tar.gz" -O  && \
+    curl -u temp:releases@2022 -SsLf "https://releases.yozosoft.com:4431/fcs/tools/jdk/Jre_${OS_ARCH}_1.8.0.tar.gz" -O  && \
     mkdir -p /opt/yozo/yozo_office_jre/  && \
     tar -zxf "Jre_${OS_ARCH}_1.8.0.tar.gz" -C /opt/yozo/yozo_office_jre/ --no-same-owner && \
     rm -rf "Jre_${OS_ARCH}_1.8.0.tar.gz"
