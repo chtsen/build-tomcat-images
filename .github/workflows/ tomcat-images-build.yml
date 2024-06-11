@@ -60,5 +60,5 @@ jobs:
           # 1.dweizhao/backend:latest
           # 2.  output-id步骤中获取的v，构建dweizhao/backend:edge或者dweizhao/backend:对应tag值
           tags: |
-            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.output-id.outputs.v }}
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_NAME }}-uuid
            # ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
