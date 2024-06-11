@@ -48,7 +48,7 @@ jobs:
         with:
         #这里引用的变量为上一步配置的变量
           username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_HUB_PW }}     
+          password: ${{ secrets.DOCKER_PW }}     
       # 打包构建并推送
       - name: Build and push
         uses: docker/build-push-action@v4
