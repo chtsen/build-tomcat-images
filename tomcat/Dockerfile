@@ -1,6 +1,6 @@
 FROM alpine:3.18.3   AS gotpl
 
-WORKDIR /opt/yozo/
+WORKDIR /opt/yozo/workdir
 
 COPY ./tools/golang/gotpl.go .
 
@@ -19,7 +19,7 @@ LABEL maintainer="Chtsen cyc@yozosoft.com"
 
 #COPY sources.list /etc/apt/sources.list
 COPY ./tools/tpl/tomcat/server.xml.tpl /usr/local/tomcat/conf/
-COPY --from=gotpl /opt/yozo/gotpl /opt/yozo/bin/ 
+COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
 
 ARG TARGETARCH
 
