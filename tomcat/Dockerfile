@@ -1,4 +1,4 @@
-FROM chtsen/alpine:3.18.3   AS gotpl
+FROM alpine:3.18.3   AS gotpl
 
 WORKDIR /opt/yozo/
 
