@@ -1,5 +1,4 @@
-FROM hub.yozosoft.com:4431/common/tomcat:9.0.89-jdk8-uuid
-
+FROM chtsen/tomcat:IMAGE_TAG-uuid
 
 RUN set -ex && \
     echo 'Yes, do as I say!'|apt install libtinfo5 && \
