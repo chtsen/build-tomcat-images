@@ -34,6 +34,7 @@ jobs:
       - name: Modify file
         run: |
            sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_sp
            
      # Docker配置多平台环境
       - name: Set up Docker BuildX
@@ -46,7 +47,7 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PW }}     
       # 打包构建并推送
-      - name: Build and push
+      - name: Tomcat build and push
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -61,4 +62,20 @@ jobs:
           # 2.  output-id步骤中获取的v，构建dweizhao/backend:edge或者dweizhao/backend:对应tag值
           tags: |
             ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid
-           # ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: Tomcat_SP build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./tomcat/Dockerfile_sp
+          platforms: |
+            linux/amd64
+            linux/arm64
+          #推送到镜像仓库  
+          push: true
+          # 这里会构建两个版本镜像，
+          # 1.dweizhao/backend:latest
+          # 2.  output-id步骤中获取的v，构建dweizhao/backend:edge或者dweizhao/backend:对应tag值
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp
+
