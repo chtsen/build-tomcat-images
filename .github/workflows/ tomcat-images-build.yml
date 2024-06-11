@@ -27,18 +27,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TZ: Asia/Shanghai
-    outputs:
-      tags: ${{ steps.output-id.outputs.v }}
+
     steps:
       # 拉取代码，同时获取tag，如果获取不到则默认值为edge，并赋值给v变量
       - uses: actions/checkout@v3
-      - id: output-id
+      - name: Modify file
         run: |
-          VERSION=edge
-          if [[ $GITHUB_REF == refs/tags/* ]]; then
-            VERSION=${GITHUB_REF#refs/tags/v}
-          fi
-          echo "v=${VERSION}" >> $GITHUB_OUTPUT
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile
+           
      # Docker配置多平台环境
       - name: Set up Docker BuildX
         uses: docker/setup-buildx-action@v2          
@@ -65,4 +61,4 @@ jobs:
           # 2.  output-id步骤中获取的v，构建dweizhao/backend:edge或者dweizhao/backend:对应tag值
           tags: |
             ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.output-id.outputs.v }}
-            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+           # ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
