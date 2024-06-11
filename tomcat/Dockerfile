@@ -2,7 +2,7 @@ FROM chtsen/alpine:3.18.3   AS gotpl
 
 WORKDIR /opt/yozo/
 
-COPY gotpl.go .
+COPY ./tools/golang/gotpl.go .
 
 RUN set -ex && \
     # sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
@@ -18,7 +18,7 @@ FROM tomcat:IMAGE_TAG
 LABEL maintainer="Chtsen cyc@yozosoft.com"
 
 #COPY sources.list /etc/apt/sources.list
-COPY server.xml.tpl /usr/local/tomcat/conf/
+COPY ./tools/tpl/tomcat/server.xml.tpl /usr/local/tomcat/conf/
 COPY --from=gotpl /opt/yozo/gotpl /opt/yozo/bin/ 
 
 ARG TARGETARCH
