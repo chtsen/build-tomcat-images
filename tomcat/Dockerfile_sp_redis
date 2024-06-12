@@ -1,0 +1,6 @@
+FROM chtsen/tomcat:IMAGE_TAG-uuid-sp
+
+COPY ./tools/redis/redis.conf /opt/yozo/conf/redis/
+
+RUN set -ex && \ 
+    apt install redis -y
