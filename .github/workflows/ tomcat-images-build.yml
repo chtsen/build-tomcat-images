@@ -34,7 +34,9 @@ jobs:
       - name: Modify file
         run: |
            sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_redis
            sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_sp
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_sp_redis
            
      # Docker配置多平台环境
       - name: Set up Docker BuildX
@@ -45,7 +47,8 @@ jobs:
         with:
         #这里引用的变量为上一步配置的变量
           username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PW }}     
+          password: ${{ secrets.DOCKER_PW }}    
+          
       # 打包构建并推送
       - name: Tomcat build and push
         uses: docker/build-push-action@v4
@@ -62,6 +65,18 @@ jobs:
           # 2.  output-id步骤中获取的v，构建dweizhao/backend:edge或者dweizhao/backend:对应tag值
           tags: |
             ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid
+            
+      - name: Tomcat_redis build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./tomcat/Dockerfile_redis
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-redis
 
       - name: Tomcat_SP build and push
         uses: docker/build-push-action@v4
@@ -71,11 +86,18 @@ jobs:
           platforms: |
             linux/amd64
             linux/arm64
-          #推送到镜像仓库  
           push: true
-          # 这里会构建两个版本镜像，
-          # 1.dweizhao/backend:latest
-          # 2.  output-id步骤中获取的v，构建dweizhao/backend:edge或者dweizhao/backend:对应tag值
           tags: |
             ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp
 
+      - name: Tomcat_SP_redis build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./tomcat/Dockerfile_sp_redis
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp-redis
