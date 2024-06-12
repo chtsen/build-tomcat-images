@@ -1,0 +1,44 @@
+FROM chtsen/tomcat:IMAGE_TAG-uuid
+
+COPY ./tools/shell/entrypoint.sh /opt/yozo/bin/
+
+ENV  APP_NAME=fcscloud \
+    IS_NACOS=false \
+    NACOS_USER=nacos \
+    NACOS_PASSWD=Yozosoft@2024 \
+    NAME_SPACE=yozo \
+    NACOS_SERVER=127.0.0.1:8848 \
+    REDIS_HOST=127.0.0.1 \
+    REDIS_PORT=6379 \
+    REDIS_MODE=0 \
+    REDIS_DB=0 \
+    REDIS_PASS=Yozosoft@2024 \
+    REDIS_CLUSTER1=127.0.0.1:6379 \
+    REDIS_CLUSTER2=127.0.0.1:6380 \
+    REDIS_CLUSTER3=127.0.0.1:6381 \
+    REDIS_CLUSTER4=127.0.0.1:6382 \
+    REDIS_CLUSTER5=127.0.0.1:6383 \
+    REDIS_CLUSTER6=127.0.0.1:6384 \
+    REDIS_SENTINEL_NAME=mymaster \
+    REDIS_SENTINEL1=127.0.0.1:26379 \
+    REDIS_SENTINEL2=127.0.0.1:26380 \
+    REDIS_SENTINEL3=127.0.0.1:26381 \
+    MQ_ENABLE=false \
+    MQ_ADDR=127.0.0.1:9876 \
+    UPLOAD_SIZE=100 \
+    CONVERT_POOL_SIZE=6 \
+    CONVERT_TIMEOUT=100 \
+    CLEAR_DAY=7 \
+    IS_CAS=false \
+    CAS_TYPE=0 \
+    IS_VERIFY=true \
+    CAS_IP=127.0.0.1 \
+    CAS_PORT=8080 \
+    IS_USERDFONTS=false \
+    GSTARCAD_ID=yozo \
+    GSTARCAD_TOKEN=3e04172b77bee0890bde44678e5e95f6 \
+    GSTARCAD_DOMAIN=http://172.18.21.66:8081 \
+    VIEW_DOMAIN=http://172.18.21.66:8060/fcscloud/ \
+    ISKILLDCC=false
+   
+CMD ["sh","-c","/opt/yozo/bin/entrypoint.sh"]
