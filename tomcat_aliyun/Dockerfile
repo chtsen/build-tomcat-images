@@ -13,7 +13,7 @@ RUN set -ex && \
     upx -9 gotpl 
 
 
-FROM tomcat:9.0.89-jdk8-temurin-focal
+FROM registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/tomcat:9.0.89-jdk8-temurin-focal
 
 LABEL maintainer="Chtsen cyc@yozosoft.com"
 
