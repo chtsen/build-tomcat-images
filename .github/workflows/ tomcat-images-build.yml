@@ -34,6 +34,7 @@ jobs:
       - name: Modify file
         run: |
            sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_env
            sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_redis
            sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_sp
            sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_sp_redis
@@ -65,6 +66,18 @@ jobs:
           # 2.  output-id步骤中获取的v，构建dweizhao/backend:edge或者dweizhao/backend:对应tag值
           tags: |
             ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid
+            
+      - name: Tomcat_env build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./tomcat/Dockerfile_redis
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-env
             
       - name: Tomcat_redis build and push
         uses: docker/build-push-action@v4
