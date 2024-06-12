@@ -5,4 +5,4 @@ RUN set -ex && \
     apt-get update && \
     apt install ncurses-base blender ffmpeg ghostscript imagemagick libglu1-mesa-dev -y
 
-ENV PATH=/usr/local/blender-2.79-linux-glibc219-x86_64:$PATH
+#ENV PATH=/usr/local/blender-2.79-linux-glibc219-x86_64:$PATH
