@@ -12,7 +12,6 @@ RUN set -ex && \
     go build -o gotpl . && \
     upx -9 gotpl 
 
-
 FROM tomcat:IMAGE_TAG
 
 LABEL maintainer="Chtsen cyc@yozosoft.com"
