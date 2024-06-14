@@ -136,7 +136,7 @@ jobs:
           tags: |
             ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp-redis
 
-      - name: Use Skopeo Tools Sync Image to Docker Hub
+      - name: Use Skopeo Tools Sync Image to Aliyun Hub
         run: |
          skopeo copy --all docker://docker.io/${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid
          skopeo copy --all docker://docker.io/${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-env docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-env
