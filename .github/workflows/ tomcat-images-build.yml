@@ -18,7 +18,7 @@ env:
   #镜像名称
   IMAGE_NAME: tomcat
   #镜像tag
-  IMAGE_TAG: 9.0.89-jdk8-temurin-focal
+  IMAGE_TAG: 9.0.90-jdk8-temurin-focal
   #dockerHub仓库名称
   DOCKER_REGISTRY: chtsen
 jobs:
