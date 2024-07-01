@@ -39,6 +39,7 @@ ENV  APP_NAME=fcscloud \
     GSTARCAD_TOKEN=3e04172b77bee0890bde44678e5e95f6 \
     GSTARCAD_DOMAIN=http://172.18.21.66:8081 \
     VIEW_DOMAIN=http://172.18.21.66:8060/fcscloud/ \
-    ISKILLDCC=false
+    ISKILLDCC=false \
+    SW_ENABLE=false
    
 CMD ["sh","-c","/opt/yozo/bin/entrypoint.sh"]
