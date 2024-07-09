@@ -41,5 +41,11 @@ ENV  APP_NAME=fcscloud \
     VIEW_DOMAIN=http://172.18.21.66:8060/fcscloud/ \
     ISKILLDCC=false \
     SW_ENABLE=false
+
+RUN set -ex && \
+    mkdir /opt/yozo/lic /opt/yozo/conf /opt/yozo/lib  /opt/yozo/data -p && \
+    chown 1099.1099 /opt/yozo /usr/local/tomcat/ -R && \
+    # apt-get install msttcorefonts fontconfig -y && \
+    chmod -R 755 /usr/local/tomcat/webapps /opt/yozo 
    
 CMD ["sh","-c","/opt/yozo/bin/entrypoint.sh"]
