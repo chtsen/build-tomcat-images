@@ -92,7 +92,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./tomcat/Dockerfile_redis
+          file: ./tomcat/Dockerfile_env
           platforms: |
             linux/amd64
             linux/arm64
