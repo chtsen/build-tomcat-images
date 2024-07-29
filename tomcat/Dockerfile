@@ -36,7 +36,7 @@ RUN set -ex && \
     groupadd -g 1099 yozo && \
     useradd -m -g 1099 -u 1099 yozo && \
     apt update && \
-    apt install sudo language-pack-zh-han* -y && \
+    apt install sudo language-pack-zh-han* libxrender1 -y && \
     echo "yozo ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers && \
     curl -u temp:releases@2022 -SsLf "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz" -O  && \
     mkdir -p /opt/yozo/yozo_office_jre/  && \
