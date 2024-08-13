@@ -5,7 +5,7 @@ COPY ./tools/shell/entrypoint.sh /opt/yozo/bin/
 ENV  APP_NAME=fcscloud \
     IS_NACOS=false \
     NACOS_USER=nacos \
-    NACOS_PASSWD=Yozosoft@2024 \
+    NACOS_PASS=Yozosoft@2024 \
     NAME_SPACE=yozo \
     NACOS_SERVER=127.0.0.1:8848 \
     REDIS_HOST=127.0.0.1 \
@@ -36,7 +36,7 @@ ENV  APP_NAME=fcscloud \
     CAS_PORT=8080 \
     IS_USERDFONTS=false \
     GSTARCAD_ID=yozo \
-    GSTARCAD_TOKEN=3e04172b77bee0890bde44678e5e95f6 \
+    GSTARCAD_TK=3e04172b77bee0890bde44678e5e95f6 \
     GSTARCAD_DOMAIN=http://172.18.21.66:8081 \
     VIEW_DOMAIN=http://172.18.21.66:8060/fcscloud/ \
     ISKILLDCC=false \
