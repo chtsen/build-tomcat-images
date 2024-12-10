@@ -1,0 +1,145 @@
+# This is a basic workflow to help you get started with Actions
+
+name: BUILD-TOMCAT-IMAGES
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+#变量配置      
+env:
+  #镜像名称
+  IMAGE_NAME: tomcat
+  #镜像tag
+  IMAGE_TAG: 9.0.97-jdk8-temurin-jammy
+  #dockerHub仓库名称
+  DOCKER_REGISTRY: chtsen
+jobs:
+  build-image:
+    #运行的环境  
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+
+    steps:
+      # 拉取代码，同时获取tag，如果获取不到则默认值为edge，并赋值给v变量
+      - uses: actions/checkout@v3
+      - name: Modify file
+        run: |
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_env
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_redis
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_sp
+           sed -i s#IMAGE_TAG#${{ env.IMAGE_TAG }}#g ./tomcat/Dockerfile_sp_redis
+
+      - name: Install updated Skopeo
+        # This can be omitted once runner images have a version of Skopeo > 1.4.1
+        # See https://github.com/containers/skopeo/issues/1874
+        run: |
+          sudo apt purge buildah golang-github-containers-common podman skopeo
+          sudo apt autoremove --purge
+          REPO_URL="https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable"
+          source /etc/os-release
+          sudo sh -c "echo 'deb ${REPO_URL}/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list"
+          sudo wget -qnv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O Release.key
+          sudo apt-key add Release.key
+          sudo apt-get update
+          sudo apt-get install skopeo
+           
+     # Docker配置多平台环境
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@v2          
+      # 登录镜像仓库
+      - name: Login Docker Hub
+        uses: docker/login-action@v1
+        with:
+        #这里引用的变量为上一步配置的变量
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PW }}    
+          
+      - name: Login to Aliyun Hub
+        uses: docker/login-action@v2.2.0
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: ${{ secrets.DOCKER_ALIYUN_USER }}
+          password: ${{ secrets.DOCKER_ALIYUN_PW }}
+          
+      # 打包构建并推送
+      - name: Tomcat build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./tomcat/Dockerfile
+          platforms: |
+            linux/amd64
+            linux/arm64
+          #推送到镜像仓库  
+          push: true
+          # 这里会构建两个版本镜像，
+          # 1.dweizhao/backend:latest
+          # 2.  output-id步骤中获取的v，构建dweizhao/backend:edge或者dweizhao/backend:对应tag值
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid
+            
+      - name: Tomcat_env build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./tomcat/Dockerfile_env
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-env
+            
+      - name: Tomcat_redis build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./tomcat/Dockerfile_redis
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-redis
+
+      - name: Tomcat_SP build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./tomcat/Dockerfile_sp
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp
+
+      - name: Tomcat_SP_redis build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./tomcat/Dockerfile_sp_redis
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp-redis
+
+      - name: Use Skopeo Tools Sync Image to Aliyun Hub
+        run: |
+         skopeo copy --all docker://docker.io/${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid
+         skopeo copy --all docker://docker.io/${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-env docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-env
+         skopeo copy --all docker://docker.io/${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-redis
+         skopeo copy --all docker://docker.io/${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp      
+         skopeo copy --all docker://docker.io/${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}-uuid-sp-redis       
