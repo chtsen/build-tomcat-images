@@ -18,7 +18,7 @@ env:
   #镜像名称
   IMAGE_NAME: tomcat
   #镜像tag
-  IMAGE_TAG: 9.0.97-jdk8-temurin-jammy
+  IMAGE_TAG: 9.0.98-jdk8-corretto-al2
   #dockerHub仓库名称
   DOCKER_REGISTRY: chtsen
 jobs:
