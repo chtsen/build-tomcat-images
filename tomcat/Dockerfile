@@ -19,7 +19,6 @@ LABEL maintainer="Chtsen cyc@yozosoft.com"
 #COPY sources.list /etc/apt/sources.list
 COPY ./tools/tpl/tomcat/server.xml.tpl /usr/local/tomcat/conf/
 COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
-COPY ./tools/shell/entrypoint.sh /opt/yozo/bin/
 
 ARG TARGETARCH
 
@@ -44,5 +43,3 @@ RUN set -ex && \
     tar -zxf "YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz" -C /opt/yozo/yozo_office_jre/ --no-same-owner && \
     rm -rf "YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz"
     #echo "yozo ALL=(ALL)       NOPASSWD:/usr/bin/cat /sys/class/dmi/id/product_uuid,/bin/cat /sys/class/dmi/id/product_uuid" >> /etc/sudoers
-    
-CMD ["sh","-c","/opt/yozo/bin/entrypoint.sh"]
