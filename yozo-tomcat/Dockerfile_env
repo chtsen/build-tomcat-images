@@ -1,7 +1,5 @@
 FROM chtsen/yozo-tomcat:IMAGE_TAG-uuid
 
-COPY ./tools/shell/entrypoint.sh /opt/yozo/bin/
-
 ENV  APP_NAME=fcscloud \
     IS_NACOS=false \
     NACOS_USER=nacos \
