@@ -1,4 +1,4 @@
-FROM chtsen/tomcat:IMAGE_TAG-uuid-sp
+FROM chtsen/yozo-tomcat:IMAGE_TAG-uuid-sp
 
 COPY ./tools/redis/redis.conf /opt/yozo/conf/redis/
 
