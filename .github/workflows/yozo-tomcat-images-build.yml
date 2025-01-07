@@ -6,13 +6,17 @@ on:
       tag:
         description: 'Tag to build Docker image'
         required: false
+        default: '9.0.98'
   pull_request:
     branches:
       - main
 
 env:
-  DOCKER_REGISTRY: registry.cn-hangzhou.aliyuncs.com
-  DOCKER_ORG: chtsen-temp
+  DOCKER_REGISTRY: docker.io
+  DOCKER_ORG: chtsen
+  DOCKER_ALIYUN_REGISTRY: registry.cn-hangzhou.aliyuncs.com
+  DOCKER_ALIYUN_ORG: chtsen-temp
+  IMAGE_NAME: tomcat
 
 jobs:
   build:
@@ -42,6 +46,7 @@ jobs:
 
       - name: Build 和 Push Docker images
         run: |
-          image="${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_ORG }}/${image_name}:${from_tag}"
+          image="${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_ORG }}/{{ env.IMAGE_NAME }}:${from_tag}"
+          
           docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"  -f "$dir"/Dockerfile .
     
