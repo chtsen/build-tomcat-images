@@ -2,7 +2,7 @@ FROM chtsen/yozo-tomcat:IMAGE_TAG-uuid
 
 RUN set -ex && \
     apt-get update && \
-    echo 'Yes, do as I say!'|apt install libtinfo5 && \
+    #echo 'Yes, do as I say!'|apt install libtinfo5 && \
     apt-get install ncurses-base blender ffmpeg ghostscript imagemagick libglu1-mesa-dev -y && \
     rm -rf  /var/lib/apt/lists/*
 
