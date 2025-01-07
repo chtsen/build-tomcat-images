@@ -30,24 +30,21 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-
-      - name: Log in to private Docker registry
-        uses: docker/login-action@v2
+     
+      # 登录镜像仓库
+      - name: Login Docker Hub
+        uses: docker/login-action@v1
         with:
-          registry: ${{ env.DOCKER_REGISTRY }}
+        #这里引用的变量为上一步配置的变量
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PW }}    
+          
+      - name: Login to Aliyun Hub
+        uses: docker/login-action@v2.2.0
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
           username: ${{ secrets.DOCKER_ALIYUN_USER }}
           password: ${{ secrets.DOCKER_ALIYUN_PW }}
-
-      - name: Get list of Dockerfiles
-        id: dockerfiles
-        run: |
-          if [ -z "${{ github.event.inputs.directory }}" ]; then
-            files=$(find . -name 'Dockerfile' -print)
-          else
-            files=$(find "${{ github.event.inputs.directory }}" -name 'Dockerfile' -print)
-          fi
-          files=$(echo "$files" | tr '\n' ' ')
-          echo "::set-output name=files::$files"
 
       - name: Build 和 Push Docker images
         run: |
