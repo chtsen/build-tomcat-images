@@ -15,10 +15,6 @@ FROM ubuntu:noble-20241118.1
 
 LABEL maintainer="Chtsen cyc@yozosoft.com"
 
-COPY ./tools/tpl/yozo-tomcat/server.xml.tpl /usr/local/tomcat/conf/
-COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
-COPY ./tools/shell/yozo-tomcat/entrypoint.sh /opt/yozo/bin/
-
 ARG TARGETARCH
 ARG TOMCAT_V
 ARG YOZO_JRE_V
@@ -53,5 +49,9 @@ RUN set -ex && \
     chown -R 1099:1099 /opt/yozo && \
     chmod -R 755 /opt/yozo
     #echo "yozo ALL=(ALL)       NOPASSWD:/usr/bin/cat /sys/class/dmi/id/product_uuid,/bin/cat /sys/class/dmi/id/product_uuid" >> /etc/sudoers
+
+COPY ./tools/tpl/yozo-tomcat/server.xml.tpl /opt/yozo/fcscloud/conf/
+COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
+COPY ./tools/shell/yozo-tomcat/entrypoint.sh /opt/yozo/bin/
 
 CMD ["sh","-c","/opt/yozo/bin/entrypoint.sh"]
