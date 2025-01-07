@@ -78,7 +78,6 @@ jobs:
       # 打包构建并推送
       - name: Tomcat build and push
         uses: docker/build-push-action@v4
-        if: ${{ github.event.inputs.directory == 'tomcat' }}
         with:
           context: .
           file: ./tomcat/Dockerfile
