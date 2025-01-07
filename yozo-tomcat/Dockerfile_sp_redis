@@ -4,5 +4,5 @@ COPY ./tools/redis/redis.conf /opt/yozo/conf/redis/
 
 RUN set -ex && \ 
     apt-get update && \
-    apt install redis -y && \
+    apt-get install redis -y && \
     rm -rf  /var/lib/apt/lists/*
