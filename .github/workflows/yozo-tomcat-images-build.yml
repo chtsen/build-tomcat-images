@@ -67,8 +67,8 @@ jobs:
           docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"-sp  -f yozo-tomcat/Dockerfile_sp .
           docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"-sp-redis  -f yozo-tomcat/Dockerfile_sp_redis .
           
-          skopeo copy --all "$image" docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid
-          skopeo copy --all "$image"-env docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-env
-          skopeo copy --all "$image"-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-redis
-          skopeo copy --all "$image"-sp docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-sp      
-          skopeo copy --all "$image"-sp-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-sp-redis
+          skopeo copy --all  docker://${{ env.DOCKER_REGISTRY }}/"$image" docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid
+          skopeo copy --all docker://${{ env.DOCKER_REGISTRY }}/"$image"-env docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-env
+          skopeo copy --all docker://${{ env.DOCKER_REGISTRY }}/"$image"-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-redis
+          skopeo copy --all docker://${{ env.DOCKER_REGISTRY }}/"$image"-sp docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-sp      
+          skopeo copy --all docker://${{ env.DOCKER_REGISTRY }}/"$image"-sp-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-sp-redis
