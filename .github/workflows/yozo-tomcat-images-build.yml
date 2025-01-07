@@ -47,6 +47,14 @@ jobs:
           registry: registry.cn-hangzhou.aliyuncs.com
           username: ${{ secrets.DOCKER_ALIYUN_USER }}
           password: ${{ secrets.DOCKER_ALIYUN_PW }}
+          
+      - name: Modify file
+        run: |
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_env
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_redis
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_sp
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_sp_redis
 
       - name: Build 和 Push Docker images
         run: |
