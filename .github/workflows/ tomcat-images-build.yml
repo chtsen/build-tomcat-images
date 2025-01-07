@@ -16,7 +16,7 @@ on:
       directory:
         description: 'Directory to build Docker image'
         required: false
-        默认: 'tomcat'  
+        default: 'tomcat'  
         
 #变量配置      
 env:
