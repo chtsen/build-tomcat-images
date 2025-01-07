@@ -48,6 +48,7 @@ jobs:
         # This can be omitted once runner images have a version of Skopeo > 1.4.1
         # See https://github.com/containers/skopeo/issues/1874
         run: |
+          skopeo --version
           sudo apt purge buildah golang-github-containers-common podman skopeo
           sudo apt autoremove --purge
           REPO_URL="https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable"
