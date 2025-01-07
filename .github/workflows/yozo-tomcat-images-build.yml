@@ -1,4 +1,4 @@
-name: Build Docker Images
+name: BUILD-YOZO-TOMCAT-IMAGES
 
 on:
   workflow_dispatch:
