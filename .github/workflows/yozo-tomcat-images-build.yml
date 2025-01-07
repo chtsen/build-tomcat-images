@@ -38,29 +38,6 @@ jobs:
 
       - name: Build 和 Push Docker images
         run: |
-          IFS=' ' read -r -a files <<< "${{ steps.dockerfiles.outputs.files }}"
-          for file in "${files[@]}"; do
-            if [ -f "$file" ]; then
-              dir=$(dirname "$file")
-              image_name=$(basename "$dir")
-              
-              # Extract the tag from the FROM line in the Dockerfile
-              if [ -z "${{ github.event.inputs.tag }}" ]; then           
-                from_tag=$(grep '^FROM' "$file" | awk -F':' '{print $NF}' | tail -n 1)
-              else
-                from_tag=${{ github.event.inputs.tag }}
-              fi
-              
-              if [ -z "$from_tag" ]; then
-                echo "No FROM tag found in $file, skipping."
-                continue
-              fi
-
-              image="${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_ORG }}/${image_name}:${from_tag}"
-
-              echo "Building Docker image for $file with tag $tag"
-              docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"  -f "$dir"/Dockerfile .
-            else
-              echo "Dockerfile $file not found, skipping."
-            fi
-          done
+          image="${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_ORG }}/${image_name}:${from_tag}"
+          docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"  -f "$dir"/Dockerfile .
+    
