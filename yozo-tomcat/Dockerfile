@@ -13,7 +13,7 @@ RUN set -ex && \
 
 FROM ubuntu:noble-20241118.1
 
-LABEL maintainer="Chtsen cyc@yozosoft.com"
+LABEL maintainer="Chtsen cyc@live.cn"
 
 ARG TARGETARCH
 ARG TOMCAT_V
