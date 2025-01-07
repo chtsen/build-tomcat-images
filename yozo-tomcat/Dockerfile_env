@@ -1,4 +1,4 @@
-FROM chtsen/tomcat:IMAGE_TAG-uuid
+FROM chtsen/yozo-tomcat:IMAGE_TAG-uuid
 
 COPY ./tools/shell/entrypoint.sh /opt/yozo/bin/
 
