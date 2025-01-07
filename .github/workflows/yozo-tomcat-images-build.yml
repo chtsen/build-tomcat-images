@@ -46,7 +46,11 @@ jobs:
 
       - name: Build 和 Push Docker images
         run: |
+          from_tag=${{ github.event.inputs.tag }}
           image="${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_ORG }}/{{ env.IMAGE_NAME }}:${from_tag}"
           
-          docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"  -f "$dir"/Dockerfile .
-    
+          docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"  -f yozo-tomcat/Dockerfile .
+          docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"_env  -f yozo-tomcat/Dockerfile_env .
+          docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"_redis  -f yozo-tomcat/Dockerfile_redis .
+          docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"_sp  -f yozo-tomcat/Dockerfile_sp .
+          docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"_sp_redis  -f yozo-tomcat/Dockerfile_sp_redis .
