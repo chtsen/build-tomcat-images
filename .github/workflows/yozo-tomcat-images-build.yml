@@ -56,7 +56,7 @@ jobs:
            sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_sp
            sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_sp_redis
 
-      - name: Build 和 Push Docker images
+      - name: Build Push Skopeo Docker images
         run: |
           from_tag="${{ github.event.inputs.tag }}-uuid"
           image="${{ env.DOCKER_ORG }}/${{ env.YOZO_IMAGE_NAME }}:${from_tag}"
