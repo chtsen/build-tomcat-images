@@ -3,4 +3,6 @@ FROM chtsen/yozo-tomcat:IMAGE_TAG-uuid-sp
 COPY ./tools/redis/redis.conf /opt/yozo/conf/redis/
 
 RUN set -ex && \ 
-    apt install redis -y
+    apt-get update && \
+    apt install redis -y && \
+    rm -rf  /var/lib/apt/lists/*
