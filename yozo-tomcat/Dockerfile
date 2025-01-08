@@ -46,6 +46,7 @@ RUN set -ex && \
     # tar -xf "OpenJDK8U-jdk_${OS_ARCH}_linux_hotspot_${OPENJDK_V}.tar.gz" -C /opt/yozo/open_jdk --strip-components=1 && \
     tar -xf "apache-tomcat-${TOMCAT_V}.tar.gz" -C /opt/yozo/fcscloud --strip-components=1 && \
     # sed -i '125i\export JAVA_HOME=/opt/yozo/open_jdk' /opt/yozo/fcscloud/bin/catalina.sh && \
+    sed -i '26i\    <Resources cachingAllowed="true" cacheMaxSize="1000000" />' /opt/yozo/fcscloud/conf/context.xml && \
     rm -rf *.tar.gz /opt/yozo/fcscloud/webapps/* /var/lib/apt/lists/* && \
     chown -R 1099:1099 /opt/yozo && \
     chmod -R 755 /opt/yozo
