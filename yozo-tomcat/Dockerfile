@@ -50,8 +50,8 @@ RUN set -ex && \
     chmod -R 755 /opt/yozo
     #echo "yozo ALL=(ALL)       NOPASSWD:/usr/bin/cat /sys/class/dmi/id/product_uuid,/bin/cat /sys/class/dmi/id/product_uuid" >> /etc/sudoers
 
-COPY ./tools/tpl/yozo-tomcat/server.xml.tpl /opt/yozo/fcscloud/conf/
-COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
-COPY ./tools/shell/yozo-tomcat/entrypoint.sh /opt/yozo/bin/
+COPY --chown=1099:1099 ./tools/tpl/yozo-tomcat/server.xml.tpl /opt/yozo/fcscloud/conf/
+COPY --chown=1099:1099 --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
+COPY --chown=1099:1099 ./tools/shell/yozo-tomcat/entrypoint.sh /opt/yozo/bin/
 
 CMD ["sh","-c","/opt/yozo/bin/entrypoint.sh"]
