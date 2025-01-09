@@ -41,13 +41,13 @@ RUN set -ex && \
     echo "yozo ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers && \
     curl -u temp:releases@2022 -SsLf -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/tomcat/apache-tomcat-${TOMCAT_V}.tar.gz"  && \
     # curl -u temp:releases@2022 -SsLf -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/OpenJDK8U-jdk_${OS_ARCH}_linux_hotspot_${OPENJDK_V}.tar.gz"  -O "https://releases.yozosoft.com:4431/fcs/tools/tomcat/apache-tomcat-${TOMCAT_V}.tar.gz"  && \
-    mkdir -p /opt/yozo/yozo_office_jre/ /opt/yozo/fcscloud /opt/yozo/lic /opt/yozo/conf /opt/yozo/lib  /opt/yozo/data -p&& \
+    mkdir -p /opt/yozo/yozo_office_jre/ /opt/yozo/fcscloud_tomcat /opt/yozo/lic /opt/yozo/conf /opt/yozo/lib  /opt/yozo/data -p&& \
     tar -xf "YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz" -C /opt/yozo/yozo_office_jre/ --no-same-owner && \
     # tar -xf "OpenJDK8U-jdk_${OS_ARCH}_linux_hotspot_${OPENJDK_V}.tar.gz" -C /opt/yozo/open_jdk --strip-components=1 && \
-    tar -xf "apache-tomcat-${TOMCAT_V}.tar.gz" -C /opt/yozo/fcscloud --strip-components=1 && \
-    # sed -i '125i\export JAVA_HOME=/opt/yozo/open_jdk' /opt/yozo/fcscloud/bin/catalina.sh && \
-    sed -i '26i\    <Resources cachingAllowed="true" cacheMaxSize="1000000" />' /opt/yozo/fcscloud/conf/context.xml && \
-    rm -rf *.tar.gz /opt/yozo/fcscloud/webapps/* /var/lib/apt/lists/* && \
+    tar -xf "apache-tomcat-${TOMCAT_V}.tar.gz" -C /opt/yozo/fcscloud_tomcat --strip-components=1 && \
+    # sed -i '125i\export JAVA_HOME=/opt/yozo/open_jdk' /opt/yozo/fcscloud_tomcat/bin/catalina.sh && \
+    sed -i '26i\    <Resources cachingAllowed="true" cacheMaxSize="1000000" />' /opt/yozo/fcscloud_tomcat/conf/context.xml && \
+    rm -rf *.tar.gz /opt/yozo/fcscloud_tomcat/webapps/* /var/lib/apt/lists/* && \
     chown -R 1099:1099 /opt/yozo && \
     chmod -R 755 /opt/yozo
     #echo "yozo ALL=(ALL)       NOPASSWD:/usr/bin/cat /sys/class/dmi/id/product_uuid,/bin/cat /sys/class/dmi/id/product_uuid" >> /etc/sudoers
