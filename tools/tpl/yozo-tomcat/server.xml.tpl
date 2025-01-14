@@ -82,7 +82,7 @@
                useSendfile="false"
                compression="on"
                compressionMinSize="2048"
-               compressableMimeType="text/html,text/xml,application/javascript,text/javascript,text/css,text/plain,application/json"
+               compressibleMimeType="text/html,text/xml,application/javascript,text/javascript,text/css,text/plain,application/json"
                />
 
     <!-- A "Connector" using the shared thread pool-->
