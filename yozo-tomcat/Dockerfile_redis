@@ -1,6 +1,6 @@
 FROM chtsen/yozo-tomcat:IMAGE_TAG-uuid
 
-COPY ./tools/redis/redis.conf /opt/yozo/conf/redis/
+COPY --chown=1099:1099 --chmod=755 ./tools/redis/redis.conf /opt/yozo/conf/redis/
 
 RUN set -ex && \ 
     apt-get update && \
