@@ -56,6 +56,6 @@ RUN set -ex && \
 
 COPY --chown=1099:1099 --chmod=755 ./tools/tpl/yozo-tomcat/server.xml.tpl /opt/yozo/fcscloud_tomcat/conf/
 COPY --chown=1099:1099 --chmod=755 --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
-COPY --chown=1099:1099 --chmod=755 ./tools/shell/yozo-tomcat/${YOZO_JRE_V}/entrypoint.sh /opt/yozo/bin/
+COPY --chown=1099:1099 --chmod=755 ./tools/shell/yozo-tomcat/${DCS_V}/entrypoint.sh /opt/yozo/bin/
 
 CMD ["sh","-c","/opt/yozo/bin/entrypoint.sh"]
