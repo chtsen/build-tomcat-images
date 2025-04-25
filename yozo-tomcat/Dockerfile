@@ -19,12 +19,14 @@ ARG TARGETARCH
 ARG TOMCAT_V
 ARG YOZO_JRE_V
 ARG OPENJDK_V
+ARG DCS_V
 
 ENV DEBIAN_FRONTEND=noninteractive \
     OS_ARCH="${TARGETARCH:-amd64}" \
-    TOMCAT_V="${TOMCAT_V:-9.0.102}" \
+    TOMCAT_V="${TOMCAT_V:-9.0.104}" \
     YOZO_JRE_V="${YOZO_JRE_V:-1.8.0}" \
     OPENJDK_V="${OPENJDK_V:-8u432b06}" \
+    DCS_V="${DCS_V:-4.17}" \
     TZ=Asia/Shanghai \
     APP_PORT=8060 \
     LANG=zh_CN.utf8 \
@@ -54,6 +56,6 @@ RUN set -ex && \
 
 COPY --chown=1099:1099 --chmod=755 ./tools/tpl/yozo-tomcat/server.xml.tpl /opt/yozo/fcscloud_tomcat/conf/
 COPY --chown=1099:1099 --chmod=755 --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
-COPY --chown=1099:1099 --chmod=755 ./tools/shell/yozo-tomcat/entrypoint.sh /opt/yozo/bin/
+COPY --chown=1099:1099 --chmod=755 ./tools/shell/yozo-tomcat/${YOZO_JRE_V}/entrypoint.sh /opt/yozo/bin/
 
 CMD ["sh","-c","/opt/yozo/bin/entrypoint.sh"]
