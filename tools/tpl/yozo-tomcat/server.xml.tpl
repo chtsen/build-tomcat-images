@@ -77,6 +77,7 @@
                tcpNoDelay="true"
                allowTrace="false"
                maxParameterCount="1000"
+               maxPartHeaderSize="8192"
                relaxedPathChars="|{}[],"
                relaxedQueryChars="[]|{}^&#x5c;&#x60;&quot;&lt;&gt;"
                useSendfile="false"
