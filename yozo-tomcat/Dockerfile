@@ -25,7 +25,6 @@ ENV DEBIAN_FRONTEND=noninteractive \
     OS_ARCH="${TARGETARCH:-amd64}" \
     TOMCAT_V="${TOMCAT_V:-9.0.113}" \
     YOZO_JRE_V="${YOZO_JRE_V:-1.8.0}" \
-    OPENJDK_V="${OPENJDK_V:-8u432b06}" \
     DCS_V="${DCS_V:-4.19}" \
     TZ=Asia/Shanghai \
     APP_PORT=8060 \
