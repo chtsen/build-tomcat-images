@@ -1,4 +1,4 @@
-FROM alpine:3.18.3   AS go_build
+FROM alpine:3.22.2   AS go_build
 
 WORKDIR /opt/yozo/workdir
 
@@ -11,7 +11,7 @@ RUN set -ex && \
     go build -o gotpl . && \
     upx -9 gotpl 
 
-FROM ubuntu:noble-20241118.1
+FROM ubuntu:noble-20251013
 
 LABEL maintainer="Chtsen cyc@live.cn"
 
@@ -23,7 +23,7 @@ ARG DCS_V
 
 ENV DEBIAN_FRONTEND=noninteractive \
     OS_ARCH="${TARGETARCH:-amd64}" \
-    TOMCAT_V="${TOMCAT_V:-9.0.113}" \
+    TOMCAT_V="${TOMCAT_V:-10.1.50}" \
     YOZO_JRE_V="${YOZO_JRE_V:-1.8.0}" \
     DCS_V="${DCS_V:-4.19}" \
     TZ=Asia/Shanghai \
