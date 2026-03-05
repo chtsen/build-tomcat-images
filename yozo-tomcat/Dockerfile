@@ -23,9 +23,9 @@ ARG DCS_V
 
 ENV DEBIAN_FRONTEND=noninteractive \
     OS_ARCH="${TARGETARCH:-amd64}" \
-    TOMCAT_V="${TOMCAT_V:-10.1.50}" \
+    TOMCAT_V="${TOMCAT_V:-9.0.115}" \
     YOZO_JRE_V="${YOZO_JRE_V:-1.8.0}" \
-    DCS_V="${DCS_V:-4.19}" \
+    DCS_V="${DCS_V:-4.17}" \
     TZ=Asia/Shanghai \
     APP_PORT=8060 \
     LANG=zh_CN.utf8 \
@@ -37,7 +37,7 @@ RUN set -ex && \
     groupadd -g 1099 yozo && \
     useradd -m -g 1099 -u 1099 yozo && \
     apt-get update && \
-    apt-get install sudo language-pack-zh-han* libxrender1 libxext6 libssl-dev curl openjdk-17-jdk -y && \
+    apt-get install sudo language-pack-zh-han* libxrender1 libxext6 libssl-dev curl openjdk-8-jdk -y && \
     apt-get clean && \
     echo "yozo ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers && \
     curl -u temp:releases@2022 -SsLf -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/tomcat/apache-tomcat-${TOMCAT_V}.tar.gz"  && \
