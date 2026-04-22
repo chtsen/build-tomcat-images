@@ -50,7 +50,7 @@ jobs:
           
       - name: Modify file
         run: |
-           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/4.17/Dockerfile
            sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_env
            sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_redis
            sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_sp
@@ -61,7 +61,7 @@ jobs:
           from_tag="${{ github.event.inputs.tag }}-uuid"
           image="${{ env.DOCKER_ORG }}/${{ env.YOZO_IMAGE_NAME }}:${from_tag}"
           
-          docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"  -f yozo-tomcat/Dockerfile .
+          docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"  -f yozo-tomcat/4.17/Dockerfile .
           skopeo copy --all  docker://${{ env.DOCKER_REGISTRY }}/"$image" docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid
           
           docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"-env  -f yozo-tomcat/Dockerfile_env .
