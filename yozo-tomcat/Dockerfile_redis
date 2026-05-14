@@ -5,6 +5,6 @@ COPY --chown=1099:1099 --chmod=755 ./tools/shell/yozo-tomcat/${DCS_V}/entrypoint
 
 RUN set -ex && \ 
     apt-get update && \
-    apt-get install redis-server -y && \
+    apt-get install redis -y && \
     rm -rf  /var/lib/apt/lists/*
     
