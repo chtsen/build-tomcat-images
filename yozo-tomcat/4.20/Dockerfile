@@ -11,26 +11,23 @@ RUN set -ex && \
     go build -o gotpl . && \
     upx -9 gotpl 
 
-FROM ubuntu:noble-20260410
+FROM ubuntu:noble-20260610
 
 LABEL maintainer="Chtsen cyc@live.cn"
 
 ARG TARGETARCH
-ARG TOMCAT_V
 ARG YOZO_JRE_V
 ARG OPENJDK_V
 ARG DCS_V
 
 ENV DEBIAN_FRONTEND=noninteractive \
     OS_ARCH="${TARGETARCH:-amd64}" \
-    TOMCAT_V="${TOMCAT_V:-10.1.54}" \
     YOZO_JRE_V="${YOZO_JRE_V:-1.8.0}" \
-    DCS_V="${DCS_V:-4.19}" \
+    DCS_V="${DCS_V:-4.20}" \
     TZ=Asia/Shanghai \
     APP_PORT=8060 \
     LANG=zh_CN.utf8 \
-    LC_ALL=zh_CN.utf8 \
-    SHUTDOWN_PORT=8005 
+    LC_ALL=zh_CN.utf8 
 
 # 设置用户/组
 RUN set -ex && \
