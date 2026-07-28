@@ -37,7 +37,7 @@ RUN set -ex && \
     apt-get install sudo language-pack-zh-han* libxrender1 libxext6 libssl-dev curl openjdk-17-jdk -y && \
     apt-get clean && \
     echo "yozo ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers && \
-    # curl -k -u temp:releases@2022 -SsLf -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/tomcat/apache-tomcat-${TOMCAT_V}.tar.gz"  && \
+    curl -k -u temp:releases@2022 -SsLf -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz"   && \
     # curl -u temp:releases@2022 -SsLf -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/OpenJDK8U-jdk_${OS_ARCH}_linux_hotspot_${OPENJDK_V}.tar.gz"  -O "https://releases.yozosoft.com:4431/fcs/tools/tomcat/apache-tomcat-${TOMCAT_V}.tar.gz"  && \
     mkdir -p /opt/yozo/yozo_office_jre/ /opt/yozo/fcscloud_jar /opt/yozo/cas/lic /opt/yozo/cas/conf /opt/yozo/cas/lib  /opt/yozo/data -p&& \
     tar -xf "YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz" -C /opt/yozo/yozo_office_jre/ --no-same-owner && \
