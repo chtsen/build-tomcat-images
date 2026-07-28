@@ -20,7 +20,7 @@ env:
   DOCKER_ORG: chtsen
   DOCKER_ALIYUN_REGISTRY: registry.cn-hangzhou.aliyuncs.com
   DOCKER_ALIYUN_ORG: chtsen-temp
-  YOZO_IMAGE_NAME: yozo-tomcat
+  YOZO_IMAGE_NAME: yozo-jdk
 
 jobs:
   build:
