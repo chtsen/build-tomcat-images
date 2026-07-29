@@ -1,4 +1,4 @@
-FROM chtsen/yozo-jar:IMAGE_TAG-uuid
+FROM chtsen/yozo-jdk:IMAGE_TAG-uuid
 
 RUN set -ex && \
     apt-get update && \
