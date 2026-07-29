@@ -1,4 +1,4 @@
-FROM chtsen/yozo-tomcat:IMAGE_TAG-uuid
+FROM chtsen/yozo-jar:IMAGE_TAG-uuid
 
 # 4.17_250428 new: UPLOAD_SIZE(4.16)==FILE_SIZE(4.17)
 # 4.17_250428 updata: IS_USERDFONTS=(false-->true)
