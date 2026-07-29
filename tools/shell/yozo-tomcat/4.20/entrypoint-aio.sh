@@ -16,4 +16,4 @@ for dir in "${directories[@]}"; do
 done
 
 /usr/bin/redis-server /opt/yozo/conf/redis/redis.conf 
-java -jar /opt/yozo/fcscloud_jar/fcscloud.jar
+java -jar fcscloud.jar
