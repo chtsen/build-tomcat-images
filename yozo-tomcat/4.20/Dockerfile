@@ -27,8 +27,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Shanghai \
     APP_PORT=8060 \
     LANG=zh_CN.utf8 \
-    LC_ALL=zh_CN.utf8 
-
+    LC_ALL=zh_CN.utf8 \
+    JAVA_OPTS="-server -Duser.timezone=GMT+08 -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djava.net.preferIPv4Stack=true -Djdk.tls.ephemeralDHKeySize=2048 -Djava.security.egd=file:/dev/./urandom -Dsun.io.useCanonCaches=false -Xms1024m -Xmx2048m -Xss512k"
 # 设置用户/组
 RUN set -ex && \
     groupadd -g 1099 yozo && \
