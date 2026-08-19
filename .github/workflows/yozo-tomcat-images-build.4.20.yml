@@ -62,17 +62,17 @@ jobs:
           image="${{ env.DOCKER_ORG }}/${{ env.YOZO_IMAGE_NAME }}:${from_tag}"
           
           docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"  -f yozo-tomcat/4.20/Dockerfile .
-          skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image" docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid
+          # skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image" docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid
           
           docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"-env  -f yozo-tomcat/Dockerfile_env .
-          skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image"-env docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-env
+          # skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image"-env docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-env
           
           docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"-redis  -f yozo-tomcat/Dockerfile_redis .
-          skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image"-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-redis
+          # skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image"-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-redis
           
           docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"-sp  -f yozo-tomcat/Dockerfile_sp .
-          skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image"-sp docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-sp      
+          # skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image"-sp docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-sp      
           
           docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$image"-sp-redis  -f yozo-tomcat/Dockerfile_sp_redis .
-          skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image"-sp-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-sp-redis
+          # skopeo copy --all --format v2s2 docker://${{ env.DOCKER_REGISTRY }}/"$image"-sp-redis docker://registry.cn-hangzhou.aliyuncs.com/chtsen-sysnc/${{ env.YOZO_IMAGE_NAME }}:${{ github.event.inputs.tag }}-uuid-sp-redis
           
