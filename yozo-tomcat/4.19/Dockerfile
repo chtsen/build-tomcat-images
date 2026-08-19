@@ -11,7 +11,7 @@ RUN set -ex && \
     go build -o gotpl . && \
     upx -9 gotpl 
 
-FROM ubuntu:noble-20260410
+FROM ubuntu:noble-20260730.1
 
 LABEL maintainer="Chtsen cyc@live.cn"
 
