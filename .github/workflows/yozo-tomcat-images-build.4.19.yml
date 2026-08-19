@@ -51,10 +51,10 @@ jobs:
       - name: Modify file
         run: |
            sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/4.19/Dockerfile
-           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_env
-           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_redis
-           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_sp
-           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/Dockerfile_sp_redis
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/4.19/Dockerfile_env
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/4.19/Dockerfile_redis
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/4.19/Dockerfile_sp
+           sed -i s#IMAGE_TAG#${{ github.event.inputs.tag }}#g ./yozo-tomcat/4.19/Dockerfile_sp_redis
 
       - name: Build Push Skopeo Docker images
         run: |
