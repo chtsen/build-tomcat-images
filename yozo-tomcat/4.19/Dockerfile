@@ -23,7 +23,7 @@ ARG DCS_V
 
 ENV DEBIAN_FRONTEND=noninteractive \
     OS_ARCH="${TARGETARCH:-amd64}" \
-    TOMCAT_V="${TOMCAT_V:-10.1.54}" \
+    TOMCAT_V="${TOMCAT_V:-10.1.57}" \
     YOZO_JRE_V="${YOZO_JRE_V:-1.8.0}" \
     DCS_V="${DCS_V:-4.19}" \
     TZ=Asia/Shanghai \
